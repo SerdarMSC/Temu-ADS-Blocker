@@ -20,7 +20,7 @@ class TemuBlocker_Extend_DataWriter extends XFCP_TemuBlocker_Extend_DataWriter
             return;
         }
 
-        // sadece 5 mesajdan az kullanıcı
+        // sadece 10 mesajdan az kullanıcı
         if ($visitor['message_count'] >= 10)
         {
             return;
@@ -32,7 +32,7 @@ class TemuBlocker_Extend_DataWriter extends XFCP_TemuBlocker_Extend_DataWriter
         {
             return;
         }
-        if (preg_match('/(t\s*e\s*m\s*u|acw274625|code|kampanya|Gutschein|acu729640|T_e_m_u)/i', $title))
+        if (preg_match('/(t\s*e\s*m\s*u|acw274625|code|kampanya|Gutschein|acu729640|T_e_m_u)/i', $title)) // Başlığa yazılacak yasaklı kelimeleri aralarına "|" işareti koyarak ekliyoruz.
         {
             // ölüm vuruşu modu
             $userDw = XenForo_DataWriter::create('XenForo_DataWriter_User');
@@ -42,7 +42,7 @@ class TemuBlocker_Extend_DataWriter extends XFCP_TemuBlocker_Extend_DataWriter
             // group değiştir (Yasaklı : 6)
             $userDw->set('user_group_id', 6);
             $userDw->save();
-
+            // Uyarı mesajı
             $this->error('Spam tespit edildi. Hesabınız kısıtlandı.', 'title');
 
         }
